@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>JSON fetch example</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/vendor/angular/angular.min.js"></script>
+    <script>
+      angular.module('JSONApp', []).controller('CallController', function($scope, $http) {
+        $scope.makeCall = function() {
+          if(!$scope.url) {
+            $scope.response = 'No URL provided';
+            return;
+          }
+          $http.get($scope.url).then(function(response) {
+            $scope.response = JSON.stringify(response.data, null, 4);
+          }, function() {
+            $scope.response = 'Error occured';
+          });
+        };
+      });
+    </script>
+  </head>
+  <body ng-app="JSONApp">
+    <h1>JSON Fetch Example</h1>
+    <div class="container" data-ng-controller="CallController">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="url">URL</label>
+          <input type="text" class="form-control" id="url" data-ng-model="url" placeholder="/maths/1/2">
+        </div>
+        <button data-ng-click="makeCall()" class="btn btn-primary">MAKE REQUEST</button>
+      </form>
+      <div class="inner-container">
+        <div class="header">Response</div>
+        <pre data-ng-bind="response || 'N/A'"></pre>
+      </div>
+    </div>
+  </body>
+</html>
