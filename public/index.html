@@ -6,11 +6,11 @@
     <script>
       angular.module('JSONApp', []).controller('CallController', function($scope, $http) {
         $scope.makeCall = function() {
-          var url = '/add/' + ($scope.number1 || 0) + '/' + ($scope.number2 || 0);
-          $http.get(url).then(function(response) {
+          var url = '/maths/' + ($scope.number1 || 0) + '/' + ($scope.number2 || 0);
+          $http.get(url, {api : 'my_api_key'}).then(function(response) {
             if(response.data) {
-              $scope.response = JSON.stringify(response.data, 4);
-              $scope.total    = response.data.total;
+              $scope.response = JSON.stringify(response.data, null, 4);
+              $scope.results  = response.data.results;
             }
           });
         };
@@ -29,11 +29,13 @@
           <label for="number2">Number 2</label>
           <input type="number" class="form-control" id="number2" data-ng-model="number2" placeholder="Number 2">
         </div>
-        <button data-ng-click="makeCall()" class="btn btn-primary">ADD NUMBERS</button>
+        <button data-ng-click="makeCall()" class="btn btn-primary">DO CALCULATIONS</button>
       </form>
       <div class="inner-container">
-        <div class="header">TOTAL</div>
-        <pre data-ng-bind="total || 0"></pre>
+        <div data-ng-repeat="result in results">
+          <div class="header" data-ng-bind="result.key"></div>
+          <pre data-ng-bind="result.value || 0"></pre>
+        </div>
         <div class="header">Response</div>
         <pre data-ng-bind="response || 'N/A'"></pre>
       </div>
