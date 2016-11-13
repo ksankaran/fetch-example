@@ -6,8 +6,12 @@
     <script>
       angular.module('JSONApp', []).controller('GoogleController', function($scope, $http) {
         $scope.makeCall = function() {
-          var url = 'https://www.googleapis.com/customsearch/v1?cx=013779956994828485136:9ihqbtyucl4&q=' + ($scope.google || 0) ;
-          $http.get(url, {params: {key: 'AIzaSyBUW9zlynxJNq-o2j12IU0ZddLIo_RlGVs'}}).then(function(response) {
+          var url = 'https://www.googleapis.com/customsearch/v1';
+          $http.get(url, {params: {
+            key: 'AIzaSyBUW9zlynxJNq-o2j12IU0ZddLIo_RlGVs',
+            cx : '013779956994828485136:9ihqbtyucl4',
+            q  : ($scope.google || '')
+          }}).then(function(response) {
             $scope.results = response.data.items;
           });
         };
