@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>JSON fetch example</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/vendor/angular/angular.min.js"></script>
+    <script>
+      angular.module('JSONApp', []).controller('GoogleController', function($scope, $http) {
+        $scope.makeCall = function() {
+          var url = 'https://www.googleapis.com/customsearch/v1?cx=013779956994828485136:9ihqbtyucl4&q=' + ($scope.google || 0) ;
+          $http.get(url, {params: {key: 'AIzaSyBUW9zlynxJNq-o2j12IU0ZddLIo_RlGVs'}}).then(function(response) {
+            $scope.results = response.data.items;
+          });
+        };
+      });
+    </script>
+  </head>
+  <body ng-app="JSONApp">
+    <h1>JSON Search Example</h1>
+    <div class="container" data-ng-controller="GoogleController">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="number1">Search Google</label>
+          <input type="google" class="form-control" id="google" data-ng-model="google" placeholder="Google Search">
+        </div>
+        <button data-ng-click="makeCall()" class="btn btn-primary">Do Search</button>
+      </form>
+
+	  <div class="inner-container">
+
+	   <div ng-repeat="result in results">
+
+		  <h3><a ng-href="{{result.link}}" target="_blank">{{ result.title }}</a></h3>
+
+	  </div>
+     </tr>
+	 </table>
+
+    </div>
+  </body>
+</html>
