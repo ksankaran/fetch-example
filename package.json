@@ -1,0 +1,20 @@
+{
+  "name": "fetch-example",
+  "version": "1.0.0",
+  "description": "Fetch API example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fetch",
+    "api",
+    "json"
+  ],
+  "author": "ksankaran",
+  "license": "ISC",
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "express": "^4.14.0"
+  }
+}

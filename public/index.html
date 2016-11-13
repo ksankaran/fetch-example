@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>JSON fetch example</title>
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/vendor/angular/angular.min.js"></script>
+    <script>
+      angular.module('JSONApp', []).controller('CallController', function($scope, $http) {
+        $scope.makeCall = function() {
+          var url = '/add/' + ($scope.number1 || 0) + '/' + ($scope.number2 || 0);
+          $http.get(url).then(function(response) {
+            if(response.data) {
+              $scope.response = JSON.stringify(response.data, 4);
+              $scope.total    = response.data.total;
+            }
+          });
+        };
+      });
+    </script>
+  </head>
+  <body ng-app="JSONApp">
+    <h1>JSON Fetch Example</h1>
+    <div class="container" data-ng-controller="CallController">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="number1">Number 1</label>
+          <input type="number" class="form-control" id="number1" data-ng-model="number1" placeholder="Number 1">
+        </div>
+        <div class="form-group">
+          <label for="number2">Number 2</label>
+          <input type="number" class="form-control" id="number2" data-ng-model="number2" placeholder="Number 2">
+        </div>
+        <button data-ng-click="makeCall()" class="btn btn-primary">ADD NUMBERS</button>
+      </form>
+      <div class="inner-container">
+        <div class="header">TOTAL</div>
+        <pre data-ng-bind="total || 0"></pre>
+        <div class="header">Response</div>
+        <pre data-ng-bind="response || 'N/A'"></pre>
+      </div>
+    </div>
+  </body>
+</html>
